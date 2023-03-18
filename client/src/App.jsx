@@ -8,6 +8,7 @@ import loadingIcon from "./assets/loader.svg";
 
 // let arr=[
 //   {type:"user", posts:"hbsfcmgj"},
+//   {type:"loading", posts:"loding..."} this can be pop if bot reply successfully
 //   {type:"bot", posts:"tghjk"}
 // ]
 
@@ -41,14 +42,27 @@ function App() {
 
   const onSubmit = () => {
     if (input.trim() === "") return;
-    updatePosts(input);
-    updatePosts("Loading...", false, true);
+    updatePosts(input); // post=input  isBot=false isLoading=false
+    updatePosts("Loading...", false, true); // post="loading..." isBot=false  isLoading=true
     setInput("");
     fetchBotResponse().then((res) => {
-      // console.log(res);
+      console.log(res);
       updatePosts(res.bot.trim(), true);
     });
   };
+
+  //by initial isBot and Isloading valuee is false
+  const updatePosts = (post, isBot, isLoading) => {
+    if (isBot) {
+      // console.log(post);
+      autoTypingBotResponse(post);
+    } else {
+      setPosts((prevState) => {
+        return [...prevState, { type: isLoading ? "loading" : "user", post }];
+      });
+    }
+  };
+  // console.log("Post:", posts);
 
   const autoTypingBotResponse = (text) => {
     let index = 0;
@@ -74,17 +88,6 @@ function App() {
         clearInterval(interval);
       }
     }, 20);
-  };
-
-  const updatePosts = (post, isBot, isLoading) => {
-    if (isBot) {
-      // console.log(post);
-      autoTypingBotResponse(post);
-    } else {
-      setPosts((prevState) => {
-        return [...prevState, { type: isLoading ? "loading" : "user", post }];
-      });
-    }
   };
 
   return (
