@@ -1,10 +1,13 @@
 import express from "express";
 import cors from "cors";
 import { Configuration, OpenAIApi } from "openai";
-import API_KEY from "./secret.js";
+// import API_KEY from "./secret.js";
 // const { API_KEY } = require("./secret");
+import dontenv from "dotenv";
 
-// console.log(API_KEY);
+dontenv.config();
+
+// console.log(process.env.API_KEY);
 
 const app = express();
 app.use(express.json());
@@ -17,7 +20,7 @@ app.get("/", async (req, res) => {
 });
 
 const configuration = new Configuration({
-  apiKey: API_KEY,
+  apiKey: process.env.API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
