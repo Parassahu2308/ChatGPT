@@ -6,7 +6,7 @@ import user from "./assets/user.png";
 import bot from "./assets/bot.png";
 import loadingIcon from "./assets/loader.svg";
 
-// let arr=[
+// let post=[
 //   {type:"user", posts:"hbsfcmgj"},
 //   {type:"loading", posts:"loding..."} this can be pop if bot reply successfully
 //   {type:"bot", posts:"tghjk"}
